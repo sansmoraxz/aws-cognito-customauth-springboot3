@@ -5,7 +5,7 @@ server:
   port: 8866
 aws:
   cognito:
-    user-pool-id: us-east-1_XXXXXXXXX
+    user-pool-id: <your user pool id>
     # yaml arrays don't work use standard spring
-    audiences: XXXXXXXXXX,YYYYYYYYYY
-    region: us-east-1
+    audiences: <coma separated list of audiences (probably your client id's in cognito), keep empty to disable validation>
+    region: <your region>
