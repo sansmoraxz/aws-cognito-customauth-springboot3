@@ -64,7 +64,20 @@ public class SecurityConfig {
                         return OAuth2TokenValidatorResult.failure(new OAuth2Error("token_expired", "Token expired at " + claims.get("exp"), null));
                     }
 
-                    return OAuth2TokenValidatorResult.success();
+
+                    // audience validation
+                    if(cognitoConfig.getAudiences().size() == 0) {
+                        return OAuth2TokenValidatorResult.success();
+                    }
+                    @SuppressWarnings("unchecked")
+                    List<String> claimedAudience = (List<String>) claims.get("aud");
+                    for(String registeredAudience: cognitoConfig.getAudiences()) {
+
+                        if (claimedAudience.contains(registeredAudience)) {
+                            return OAuth2TokenValidatorResult.success();
+                        }
+                    }
+                    return OAuth2TokenValidatorResult.failure(new OAuth2Error("invalid_audience", "No matching audience found", null));
                 }
             }
         );
