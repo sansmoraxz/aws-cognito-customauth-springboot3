@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: cog-auth-poc
+server:
+  port: 8866
+aws:
+  cognito:
+    user-pool-id: us-east-1_XXXXXXXXX
+    # yaml arrays don't work use standard spring
+    audiences: XXXXXXXXXX,YYYYYYYYYY
+    region: us-east-1
